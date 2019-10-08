@@ -12,6 +12,8 @@ public:
 	Object();
 	~Object();
 
+	void InitPhysics();
+
 	void GetPos(float *x, float *y, float *z);
 	void SetPos(float x, float y, float z);
 
@@ -29,5 +31,7 @@ public:
 
 	void GetColor(float *r, float *g, float *b, float *a);
 	void SetColor(float r, float g, float b, float a);
+
+	void Update(float eTime);
 };
 

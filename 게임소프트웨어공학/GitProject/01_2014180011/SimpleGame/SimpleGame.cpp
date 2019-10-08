@@ -15,31 +15,42 @@ but WITHOUT ANY WARRANTY.
 #include "ScnMgr.h"
 
 ScnMgr* g_ScnMgr = NULL;
+int g_PrevTime = 0;
 
-void RenderScene(void)
+void RenderScene(int temp)
 {
+	int currTime = glutGet(GLUT_ELAPSED_TIME);
+	int eTime = currTime - g_PrevTime;
+	g_PrevTime = currTime;
+
+	std::cout << eTime << std::endl;
+	g_ScnMgr->Update(eTime / 1000.f);
 	g_ScnMgr->RenderScene();
+
 	glutSwapBuffers();
+
+	glutTimerFunc(8, RenderScene, 0);
+}
+
+
+void Display(void)
+{
 }
 
 void Idle(void)
 {
-	RenderScene();
 }
 
 void MouseInput(int button, int state, int x, int y)
 {
-	RenderScene();
 }
 
 void KeyInput(unsigned char key, int x, int y)
 {
-	RenderScene();
 }
 
 void SpecialKeyInput(int key, int x, int y)
 {
-	RenderScene();
 }
 
 int main(int argc, char **argv)
@@ -63,12 +74,15 @@ int main(int argc, char **argv)
 
 	g_ScnMgr = new ScnMgr();
 
-	glutDisplayFunc(RenderScene);
+	glutDisplayFunc(Display);
 	glutIdleFunc(Idle);
 	glutKeyboardFunc(KeyInput);
 	glutMouseFunc(MouseInput);
 	glutSpecialFunc(SpecialKeyInput);
 
+	g_PrevTime = glutGet(GLUT_ELAPSED_TIME);
+	glutTimerFunc(16, RenderScene, 0);
+	
 	glutMainLoop();
 
 	delete g_ScnMgr;

@@ -4,11 +4,21 @@
 
 Object::Object()
 {
+	InitPhysics();
 }
-
 
 Object::~Object()
 {
+}
+
+void Object::InitPhysics()
+{
+	m_posX = 0.f, m_posY = 0.f, m_posZ = 0.f;
+	m_velX = 0.f, m_velY = 0.f, m_velZ = 0.f;
+	m_accX = 0.f, m_accY = 0.f, m_accZ = 0.f;
+	m_volX = 0.f, m_volY = 0.f, m_volZ = 0.f;
+	m_r = 0.f, m_g = 0.f, m_b = 0.f, m_a = -1.f;
+	m_mass = -1.f;
 }
 
 
@@ -86,4 +96,11 @@ void Object::SetColor(float r, float g, float b, float a)
 	m_g = g;
 	m_b = b;
 	m_a = a;
+}
+
+void Object::Update(float eTime)
+{
+	m_posX = m_posX + m_velX * eTime;
+	m_posY = m_posY + m_velY * eTime;
+	m_posZ = m_posZ + m_velZ * eTime;
 }

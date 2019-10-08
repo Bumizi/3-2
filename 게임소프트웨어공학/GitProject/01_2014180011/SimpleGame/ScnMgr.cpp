@@ -25,10 +25,10 @@ ScnMgr::ScnMgr()
 	}
 
 	//Add Test Object
-	m_TestIdx = AddObjects(0, 0, 0, 100, 10, 10, 1, 1, 1, 1);
+	m_TestIdx = AddObjects(0, 0, 0, 1, 1, 1, 1, 1, 1, 1);
 	for (int i = 0; i < MAX_OBJECTS; i++)
 	{
-		m_TestIdxArray[i] = AddObjects(0, 0, 0, 100, 10, 10, 1, 1, 1, 1);
+		m_TestIdxArray[i] = AddObjects(i*1, i*1, 0, 1, 1, 1, 1, 1, 1, 1);
 	}
 }
 
@@ -37,6 +37,17 @@ ScnMgr::~ScnMgr()
 {
 	delete m_Renderer;
 	m_Renderer = NULL;
+}
+
+void ScnMgr::Update(float eTime)
+{
+	for (int i = 0; i < MAX_OBJECTS; i++)
+	{
+		if (m_Object[i] != NULL)
+		{
+			m_Object[i]->Update(eTime);
+		}
+	}
 }
 
 void ScnMgr::RenderScene()
@@ -54,9 +65,14 @@ void ScnMgr::RenderScene()
 		if (m_Object[i] != NULL)
 		{
 			m_Object[m_TestIdx]->GetPos(&x, &y, &z);
+			x = x * 100.f;
+			y = y * 100.f;
+			z = z * 100.f;
 			m_Object[m_TestIdx]->GetVol(&sx, &sy, &sz);
+			sx = sx * 100.f;
+			sy = sy * 100.f;
+			sz = sz * 100.f;
 			m_Object[m_TestIdx]->GetColor(&r, &g, &b, &a);
-
 			m_Renderer->DrawSolidRect(x, y, z, sz, r, g, b, a);
 		}
 	}
@@ -83,6 +99,7 @@ int ScnMgr::AddObjects(float x, float y, float z, float sx, float sy, float sz, 
 	m_Object[idx]->SetColor(r, g, b, a);
 	m_Object[idx]->SetPos(x, y, z);
 	m_Object[idx]->SetVol(sx, sy, sz);
+	m_Object[idx]->SetVel(0.5, 0, 0);
 
 	return idx;
 }
