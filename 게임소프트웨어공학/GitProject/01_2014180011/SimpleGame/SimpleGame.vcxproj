@@ -156,7 +156,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h" />
-    <ClInclude Include="HERO_ID.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ScnMgr.h" />

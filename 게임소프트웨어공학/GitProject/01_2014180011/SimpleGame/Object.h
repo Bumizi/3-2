@@ -33,7 +33,5 @@ public:
 	void SetColor(float r, float g, float b, float a);
 
 	void Update(float eTime);
-
-	void AddForce(float x, float y, float z, float eTime);
 };
 
