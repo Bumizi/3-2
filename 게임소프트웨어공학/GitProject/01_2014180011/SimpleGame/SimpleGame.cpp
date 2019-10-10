@@ -45,8 +45,14 @@ void MouseInput(int button, int state, int x, int y)
 {
 }
 
-void KeyInput(unsigned char key, int x, int y)
+void KeyDownInput(unsigned char key, int x, int y)
 {
+	g_ScnMgr->KeyDownInput(key, x, y);
+}
+
+void KeyUpInput(unsigned char key, int x, int y)
+{
+	g_ScnMgr->KeyUpInput(key, x, y);
 }
 
 void SpecialKeyInput(int key, int x, int y)
@@ -76,7 +82,8 @@ int main(int argc, char **argv)
 
 	glutDisplayFunc(Display);
 	glutIdleFunc(Idle);
-	glutKeyboardFunc(KeyInput);
+	glutKeyboardFunc(KeyDownInput);
+	glutKeyboardUpFunc(KeyUpInput);
 	glutMouseFunc(MouseInput);
 	glutSpecialFunc(SpecialKeyInput);
 
