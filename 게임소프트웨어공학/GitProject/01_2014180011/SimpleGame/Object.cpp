@@ -104,3 +104,17 @@ void Object::Update(float eTime)
 	m_posY = m_posY + m_velY * eTime;
 	m_posZ = m_posZ + m_velZ * eTime;
 }
+
+void Object::AddForce(float x, float y, float z, float eTime)
+{
+	float accX, accY, accZ;
+	accX = accY = accZ = 0.f;
+
+	accX = x / m_mass;
+	accY = y / m_mass;
+	accZ = z / m_mass;
+
+	m_velX = m_velX + accX * eTime;
+	m_velY = m_velY + accY * eTime;
+	m_velZ = m_velZ + accZ * eTime;
+}
